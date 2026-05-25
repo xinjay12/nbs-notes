@@ -50,14 +50,14 @@
 
   .header h1 {
     font-family: 'Noto Serif TC', serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem; /* 桌機大標同步放大 */
     font-weight: 700;
     letter-spacing: 0.05em;
     color: var(--paper);
   }
 
   .header .subtitle {
-    font-size: 0.75rem;
+    font-size: 0.8rem; /* 放大 */
     color: var(--border);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -65,7 +65,7 @@
 
   .header-right {
     margin-left: auto;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: #888;
   }
 
@@ -73,7 +73,7 @@
   .nav {
     background: var(--paper-dark);
     border-bottom: 1px solid var(--border);
-    padding: 0.75rem 2.5rem;
+    padding: 0.85rem 2.5rem; /* 增加上下間距 */
     position: sticky;
     top: 85px;
     z-index: 99;
@@ -85,14 +85,14 @@
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    gap: 0.4rem;
+    gap: 0.5rem;
   }
 
   .nav-pill {
     display: inline-block;
-    padding: 0.35rem 0.8rem;
+    padding: 0.45rem 1rem; /* 按紐變大更好按 */
     border-radius: 2px;
-    font-size: 0.72rem;
+    font-size: 0.85rem; /* 基礎標籤字體放大 */
     cursor: pointer;
     border: 1px solid var(--border);
     background: var(--paper);
@@ -108,7 +108,7 @@
     border-color: var(--ink);
   }
 
-  /* Main layout - 徹底重構為極簡單欄佈局，並優雅置中 */
+  /* Main layout */
   .main {
     max-width: 1100px;
     margin: 0 auto;
@@ -149,7 +149,7 @@
 
   .panel-num {
     font-family: 'Noto Serif TC', serif;
-    font-size: 3rem;
+    font-size: 3.2rem; /* 放大 */
     font-weight: 300;
     color: var(--border);
     line-height: 1;
@@ -157,7 +157,7 @@
 
   .panel-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 1.6rem;
+    font-size: 1.75rem; /* 放大 */
     font-weight: 600;
     color: var(--ink);
   }
@@ -173,7 +173,7 @@
     background: white;
     border: 1px solid var(--border);
     border-top: 3px solid var(--accent);
-    padding: 1.25rem;
+    padding: 1.5rem; /* 內距增加，更有空間感 */
     transition: box-shadow 0.2s;
   }
 
@@ -195,10 +195,10 @@
 
   .card-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 0.9rem;
+    font-size: 1.05rem; /* 桌機基礎標題調大 */
     font-weight: 600;
     color: var(--accent);
-    margin-bottom: 0.9rem;
+    margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--paper-dark);
     display: flex;
@@ -209,19 +209,19 @@
   .card-title.gold { color: var(--gold); }
   .card-title.dark { color: var(--ink); }
 
-  /* List styles */
+  /* List styles - 基礎字體與行高全面升級 */
   .item-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
 
   .item-list li {
-    font-size: 0.8rem;
-    line-height: 1.6;
+    font-size: 0.95rem; /* 桌機版全面升級到接近 1rem 的舒適閱讀感 */
+    line-height: 1.7;
     color: #333;
-    padding-left: 0.9rem;
+    padding-left: 1rem;
     position: relative;
   }
 
@@ -230,7 +230,7 @@
     position: absolute;
     left: 0;
     color: var(--border);
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 
   .item-list li strong {
@@ -242,13 +242,13 @@
   .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
   }
 
   .tag {
-    font-size: 0.68rem;
-    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem; /* 放大 */
+    padding: 0.25rem 0.75rem;
     background: var(--paper-dark);
     border: 1px solid var(--border);
     color: var(--muted);
@@ -273,31 +273,31 @@
     align-items: center;
     gap: 0;
     flex-wrap: wrap;
-    margin: 0.75rem 0;
+    margin: 1rem 0;
   }
 
   .flow-step {
     background: var(--ink);
     color: var(--paper);
-    font-size: 0.72rem;
-    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem; /* 放大 */
+    padding: 0.5rem 0.85rem;
     font-weight: 500;
     white-space: nowrap;
   }
 
   .flow-arrow {
     color: var(--accent);
-    font-size: 0.8rem;
-    padding: 0 0.3rem;
+    font-size: 0.9rem;
+    padding: 0 0.4rem;
   }
 
   /* Quote block */
   .quote-block {
     border-left: 3px solid var(--accent);
     background: var(--paper-dark);
-    padding: 0.75rem 1rem;
-    margin: 0.5rem 0;
-    font-size: 0.8rem;
+    padding: 0.85rem 1.15rem;
+    margin: 0.75rem 0;
+    font-size: 0.95rem; /* 基礎文字放大 */
     font-style: italic;
     color: var(--ink);
     line-height: 1.6;
@@ -314,31 +314,31 @@
   .fw-item {
     background: var(--paper-dark);
     border: 1px solid var(--border);
-    padding: 0.6rem;
+    padding: 0.75rem 0.6rem;
     text-align: center;
   }
 
   .fw-letter {
     font-family: 'Noto Serif TC', serif;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--accent);
     display: block;
   }
 
   .fw-word {
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     color: var(--muted);
     margin-top: 0.15rem;
     display: block;
   }
 
   .fw-desc {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     color: var(--ink);
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
     display: block;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   /* Tier boxes */
@@ -351,15 +351,15 @@
   .tier-label {
     background: var(--ink);
     color: var(--paper);
-    font-size: 0.7rem;
+    font-size: 0.8rem; /* 放大 */
     font-weight: 600;
-    padding: 0.3rem 0.75rem;
+    padding: 0.4rem 0.85rem;
     letter-spacing: 0.05em;
   }
 
   .tier-content {
-    padding: 0.75rem;
-    font-size: 0.78rem;
+    padding: 0.85rem;
+    font-size: 0.9rem; /* 放大 */
     line-height: 1.7;
     color: #333;
   }
@@ -373,7 +373,7 @@
   }
 
   .risk-item {
-    padding: 1rem;
+    padding: 1.25rem 1rem;
     text-align: center;
     border: 1px solid var(--border);
   }
@@ -382,9 +382,9 @@
   .risk-item.r2 { border-top: 3px solid #4a7ab5; }
   .risk-item.r3 { border-top: 3px solid #5a9a6a; }
 
-  .risk-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
-  .risk-name { font-size: 0.8rem; font-weight: 600; color: var(--ink); }
-  .risk-sub { font-size: 0.68rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.4; }
+  .risk-icon { font-size: 1.6rem; margin-bottom: 0.3rem; }
+  .risk-name { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .risk-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.5; }
 
   /* SPIN */
   .spin-grid {
@@ -395,26 +395,26 @@
   }
 
   .spin-item {
-    padding: 0.75rem;
+    padding: 0.85rem;
     border: 1px solid var(--border);
     background: var(--paper-dark);
   }
 
   .spin-letter {
     font-family: 'Noto Serif TC', serif;
-    font-size: 1.3rem;
+    font-size: 1.45rem;
     font-weight: 700;
     color: var(--accent);
   }
 
   .spin-name {
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     color: var(--muted);
     margin-top: 0.1rem;
   }
 
   .spin-desc {
-    font-size: 0.75rem;
+    font-size: 0.88rem;
     color: var(--ink);
     margin-top: 0.4rem;
     line-height: 1.5;
@@ -429,12 +429,12 @@
   }
 
   .account-circle {
-    width: 70px; height: 70px;
+    width: 75px; height: 75px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     font-weight: 500;
     text-align: center;
     line-height: 1.3;
@@ -445,16 +445,16 @@
   .ac2 { background: #daeaf5; color: #1a5080; border: 1px solid #b0d0e0; z-index: 1; }
   .ac3 { background: #daf5da; color: #205020; border: 1px solid #b0d0b0; margin-left: -15px; }
 
-  .account-arrow { font-size: 1.2rem; color: var(--accent); margin: 0 0.3rem; }
+  .account-arrow { font-size: 1.3rem; color: var(--accent); margin: 0 0.3rem; }
 
   .account-shield {
-    width: 60px; height: 60px;
+    width: 65px; height: 65px;
     background: var(--ink);
     color: var(--paper);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     text-align: center;
     line-height: 1.3;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
@@ -470,7 +470,7 @@
   .quote-card {
     background: var(--ink);
     color: var(--paper);
-    padding: 1.25rem;
+    padding: 1.5rem;
     border-left: 4px solid var(--accent);
     position: relative;
     overflow: hidden;
@@ -490,7 +490,7 @@
   .quote-card.gold-border { border-left-color: var(--gold); }
 
   .quote-text {
-    font-size: 0.8rem;
+    font-size: 0.95rem; /* 金句放大 */
     line-height: 1.7;
     font-style: italic;
     position: relative;
@@ -505,11 +505,11 @@
     margin-bottom: 0.5rem;
   }
 
-  .comm-label { font-size: 0.72rem; color: var(--muted); min-width: 50px; }
+  .comm-label { font-size: 0.8rem; color: var(--muted); min-width: 50px; }
 
   .comm-track {
     flex: 1;
-    height: 8px;
+    height: 10px;
     background: var(--paper-dark);
     border: 1px solid var(--border);
     position: relative;
@@ -520,9 +520,9 @@
     background: var(--accent);
   }
 
-  .comm-pct { font-size: 0.72rem; font-weight: 600; color: var(--ink); min-width: 30px; }
+  .comm-pct { font-size: 0.8rem; font-weight: 600; color: var(--ink); min-width: 30px; }
 
-  /* Overview map - 重構為響應式自適應無縫排版，解決拉長擠壓問題 */
+  /* Overview map */
   .overview-map {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -539,7 +539,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 125px; /* 給予扎實的基底高度 */
+    min-height: 130px;
   }
 
   .ov-card:hover {
@@ -549,7 +549,7 @@
   }
 
   .ov-num {
-    font-size: 0.62rem;
+    font-size: 0.68rem;
     color: var(--accent);
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -559,51 +559,50 @@
 
   .ov-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 0.9rem;
+    font-size: 1rem; /* 總覽標題放大 */
     font-weight: 600;
     color: var(--ink);
     margin-bottom: 0.4rem;
   }
 
   .ov-desc {
-    font-size: 0.68rem;
+    font-size: 0.8rem; /* 總覽描述放大 */
     color: var(--muted);
     line-height: 1.5;
   }
 
-  /* Responsive 媒體查詢微調與手機字級清晰放大優化 */
+  /* Responsive 媒體查詢 - 加上最高權重 !important 確保絕對放大成功 */
   @media (max-width: 900px) {
-    .main {
-      padding: 1.5rem;
-    }
+    .main { padding: 1.5rem; }
     .framework { grid-template-columns: repeat(3, 1fr); }
     .overview-map { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
     .risk-grid { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 600px) {
-    .header { padding: 1.5rem 1.25rem; }
-    .header h1 { font-size: 1.4rem; } /* 放大標題 */
-    .nav { padding: 0.6rem 1.25rem; top: 76px; }
-    .nav-pill { font-size: 0.85rem; padding: 0.4rem 0.9rem; } /* 放大橫列標籤 */
-    .main { padding: 1.25rem 1rem; gap: 1.5rem; }
+    .header { padding: 1.5rem 1.25rem !important; }
+    .header h1 { font-size: 1.45rem !important; }
+    .nav { padding: 0.6rem 1.25rem !important; top: 76px !important; }
+    .nav-pill { font-size: 0.9rem !important; padding: 0.45rem 0.95rem !important; } 
+    .main { padding: 1.25rem 1rem !important; gap: 1.5rem !important; }
     
-    /* 手機版總覽方塊與一般卡片字體全面放大，提升通勤滑閱舒適度 */
-    .ov-title { font-size: 1.05rem; } 
-    .ov-desc { font-size: 0.85rem; line-height: 1.6; }
-    .card-title { font-size: 1.05rem; }
-    .item-list li { font-size: 0.92rem; line-height: 1.7; }
-    .quote-block { font-size: 0.92rem; line-height: 1.6; }
+    /* 手機版暴力破壞型放大機制 */
+    .ov-title { font-size: 1.15rem !important; } 
+    .ov-desc { font-size: 0.92rem !important; line-height: 1.6 !important; }
+    .card-title { font-size: 1.15rem !important; }
+    .item-list li { font-size: 1rem !important; line-height: 1.7 !important; }
+    .quote-block { font-size: 1rem !important; line-height: 1.6 !important; }
+    .quote-text { font-size: 1.05rem !important; line-height: 1.7 !important; }
     
-    /* 手機版專屬框架細緻化放大 */
-    .spin-grid { grid-template-columns: 1fr; }
-    .spin-letter { font-size: 1.6rem; }
-    .spin-desc { font-size: 0.88rem; }
-    .tier-content { font-size: 0.9rem; line-height: 1.6; }
-    .overview-map { grid-template-columns: 1fr; gap: 1.25rem; }
-    .framework { grid-template-columns: 1fr; gap: 0.75rem; }
-    .fw-letter { font-size: 1.4rem; }
-    .fw-desc { font-size: 0.85rem; }
+    .spin-grid { grid-template-columns: 1fr !important; }
+    .spin-letter { font-size: 1.75rem !important; }
+    .spin-desc { font-size: 0.95rem !important; }
+    .tier-label { font-size: 0.9rem !important; }
+    .tier-content { font-size: 0.95rem !important; line-height: 1.6 !important; }
+    .overview-map { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    .framework { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+    .fw-letter { font-size: 1.5rem !important; }
+    .fw-desc { font-size: 0.92rem !important; }
   }
 </style>
 </head>
@@ -887,10 +886,10 @@
         <div class="card">
           <div class="card-title">OI 流程</div>
           <div class="flow" style="flex-direction:column; align-items:flex-start; gap:0.4rem;">
-            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="font-size:0.68rem;">介紹公司</div><div class="flow-arrow">→</div><div style="font-size:0.75rem;">Why Transglobe</div></div>
-            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="font-size:0.68rem;">介紹 LP</div><div class="flow-arrow">→</div><div style="font-size:0.75rem;">量身訂做 = NBS</div></div>
-            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="font-size:0.68rem;">介紹服務</div><div class="flow-arrow">→</div><div style="font-size:0.75rem;">Tier 1 &amp; 2</div></div>
-            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="font-size:0.68rem;">保障計劃</div><div class="flow-arrow">→</div><div style="font-size:0.75rem;">年收 10 倍，保費 10%</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step">介紹公司</div><div class="flow-arrow">→</div><div style="font-size:0.85rem;">Why Transglobe</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step">介紹 LP</div><div class="flow-arrow">→</div><div style="font-size:0.85rem;">量身訂做 = NBS</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step">介紹服務</div><div class="flow-arrow">→</div><div style="font-size:0.85rem;">Tier 1 &amp; 2</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step">保障計劃</div><div class="flow-arrow">→</div><div style="font-size:0.85rem;">年收 10 倍，保費 10%</div></div>
           </div>
         </div>
         <div class="card wide">
@@ -1055,11 +1054,11 @@
         <div class="card">
           <div class="card-title">P1 說明順序</div>
           <div class="flow" style="flex-direction:column; align-items:flex-start; gap:0.4rem;">
-            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#c94040;font-size:0.68rem;">死亡</div><div style="font-size:0.75rem;">身故 · 提前給付 · 分期給付</div></div>
-            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#4a7ab5;font-size:0.68rem;">失能</div><div style="font-size:0.75rem;">完全失能 · 帳戶價值累計</div></div>
-            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#5a9a6a;font-size:0.68rem;">老</div><div style="font-size:0.75rem;">老年住院 · 長照 LTC</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#c94040;">死亡</div><div style="font-size:0.85rem;">身故 · 提前給付 · 分期給付</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#4a7ab5;">失能</div><div style="font-size:0.85rem;">完全失能 · 帳戶價值累計</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#5a9a6a;">老</div><div style="font-size:0.85rem;">老年住院 · 長照 LTC</div></div>
           </div>
-          <div style="margin-top:0.75rem; font-size:0.75rem; color:var(--muted);">先設計大的費用</div>
+          <div style="margin-top:0.75rem; font-size:0.8rem; color:var(--muted);">先設計大的費用</div>
         </div>
         <div class="card">
           <div class="card-title gold">WL 的六大價值</div>
@@ -1110,7 +1109,7 @@
           <ul class="item-list">
             <li>反對問題至少要處理 <strong>5 次</strong></li>
             <li>不安不滿 → OI 確定購買 → P1、P2、Close</li>
-            <li>為何馬上決定優於延後？</li>
+            <li>開何馬上決定優於延後？</li>
             <li>① 符合你當下的情況</li>
             <li>② 想買不見得買得到（風險的不可見性）</li>
             <li>③ 這個決定是最好的</li>
@@ -1125,7 +1124,7 @@
             <li>當下完成投保的程序</li>
             <li>PC → N，說故事是關鍵</li>
           </ul>
-          <div class="quote-block" style="margin-top:0.5rem;">「我相信你會這樣能實際照顧家」</div>
+          <div class="quote-block">「我相信你會這樣能實際照顧家」</div>
         </div>
       </div>
     </div>
@@ -1281,7 +1280,7 @@
               <div class="comm-pct">55%</div>
             </div>
           </div>
-          <div class="quote-block" style="margin-top:0.75rem;">感性做決定，理性為決定辯護</div>
+          <div class="quote-block">感性做決定，理性為決定辯護</div>
         </div>
         <div class="card">
           <div class="card-title">溝通核心原則</div>
@@ -1301,7 +1300,7 @@
             <span class="tag red">③ 執行度（你知道你在幹嗎）</span>
             <span class="tag red">④ 誠意</span>
           </div>
-          <div style="margin-top:0.75rem; font-size:0.78rem; color:var(--muted);">① - ④ 先建立，② - ③ 持續維護</div>
+          <div style="margin-top:0.75rem; font-size:0.85rem; color:var(--muted);">① - ④ 先建立，② - ③ 持續維護</div>
         </div>
       </div>
     </div>
@@ -1321,7 +1320,7 @@
             <div class="account-arrow">+</div>
             <div class="account-shield">風險<br>保護帳號</div>
           </div>
-          <div style="font-size:0.72rem; color:var(--muted); margin-top:0.75rem;">收入沒了，保險保護這三個帳號繼續運作</div>
+          <div style="font-size:0.78rem; color:var(--muted); margin-top:0.75rem;">收入沒了，保險保護這三個帳號繼續運作</div>
         </div>
         <div class="card">
           <div class="card-title">利率變動型</div>
