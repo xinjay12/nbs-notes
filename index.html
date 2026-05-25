@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>壽險顧問訓練筆記</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f0e8;
+    --paper-dark: #ede8d8;
+    --accent: #8b3a3a;
+    --accent-light: #c9675a;
+    --gold: #b8860b;
+    --muted: #6b6055;
+    --border: #c8bfb0;
+    --highlight: #e8d5a3;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem 2.5rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--accent);
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--paper);
+  }
+
+  .header .subtitle {
+    font-size: 0.75rem;
+    color: var(--border);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: var(--muted);
+    color: #888;
+  }
+
+  /* Nav pills */
+  .nav {
+    background: var(--paper-dark);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 2.5rem;
+    position: sticky;
+    top: 85px;
+    z-index: 99;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .nav-pill {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    border-radius: 2px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--paper);
+    color: var(--muted);
+    transition: all 0.2s;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .nav-pill:hover, .nav-pill.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* Main layout */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  /* Sidebar module list */
+  .sidebar {
+    position: sticky;
+    top: 160px;
+  }
+
+  .sidebar-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .module-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    background: none;
+    border: none;
+    border-left: 2px solid transparent;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+    transition: all 0.18s;
+    line-height: 1.4;
+  }
+
+  .module-btn:hover {
+    background: var(--paper-dark);
+    color: var(--ink);
+    border-left-color: var(--border);
+  }
+
+  .module-btn.active {
+    background: var(--paper-dark);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .module-num {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .module-btn.active .module-num {
+    opacity: 1;
+  }
+
+  /* Content area */
+  .content {
+    min-height: 60vh;
+  }
+
+  .module-panel {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .module-panel.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .panel-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+  }
+
+  .panel-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Cards grid */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    padding: 1.25rem;
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .card.wide {
+    grid-column: 1 / -1;
+  }
+
+  .card.gold-top {
+    border-top-color: var(--gold);
+  }
+
+  .card.dark-top {
+    border-top-color: var(--ink);
+  }
+
+  .card-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--paper-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card-title.gold { color: var(--gold); }
+  .card-title.dark { color: var(--ink); }
+
+  .card-icon {
+    font-size: 0.9rem;
+  }
+
+  /* List styles */
+  .item-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .item-list li {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: #333;
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .item-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--border);
+    font-size: 0.7rem;
+  }
+
+  .item-list li strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Tag chips */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    padding: 0.2rem 0.6rem;
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 1px;
+  }
+
+  .tag.red {
+    background: #fdf0f0;
+    border-color: #e0b0b0;
+    color: var(--accent);
+  }
+
+  .tag.gold {
+    background: #fdf8e8;
+    border-color: #d4b96a;
+    color: var(--gold);
+  }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 0.75rem 0;
+  }
+
+  .flow-step {
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.72rem;
+    padding: 0.4rem 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 0.8rem;
+    padding: 0 0.3rem;
+  }
+
+  /* Quote block */
+  .quote-block {
+    border-left: 3px solid var(--accent);
+    background: var(--paper-dark);
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* CHINA framework */
+  .framework {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .fw-item {
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    padding: 0.6rem;
+    text-align: center;
+  }
+
+  .fw-letter {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .fw-word {
+    font-size: 0.62rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+    display: block;
+  }
+
+  .fw-desc {
+    font-size: 0.65rem;
+    color: var(--ink);
+    margin-top: 0.3rem;
+    display: block;
+    line-height: 1.4;
+  }
+
+  /* Tier boxes */
+  .tier-box {
+    border: 1px solid var(--border);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  .tier-label {
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .tier-content {
+    padding: 0.75rem;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  /* Three risk */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .risk-item {
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+
+  .risk-item.r1 { border-top: 3px solid #c94040; }
+  .risk-item.r2 { border-top: 3px solid #4a7ab5; }
+  .risk-item.r3 { border-top: 3px solid #5a9a6a; }
+
+  .risk-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+  .risk-name { font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+  .risk-sub { font-size: 0.68rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.4; }
+
+  /* SPIN */
+  .spin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .spin-item {
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--paper-dark);
+  }
+
+  .spin-letter {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .spin-name {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.1rem;
+  }
+
+  .spin-desc {
+    font-size: 0.75rem;
+    color: var(--ink);
+    margin-top: 0.4rem;
+    line-height: 1.5;
+  }
+
+  /* Accounts */
+  .accounts {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    align-items: center;
+  }
+
+  .account-circle {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .ac1 { background: #f5dada; color: #8b2020; border: 1px solid #e0b0b0; margin-right: -15px; }
+  .ac2 { background: #daeaf5; color: #1a5080; border: 1px solid #b0d0e0; z-index: 1; }
+  .ac3 { background: #daf5da; color: #205020; border: 1px solid #b0d0b0; margin-left: -15px; }
+
+  .account-arrow { font-size: 1.2rem; color: var(--accent); margin: 0 0.3rem; }
+
+  .account-shield {
+    width: 60px; height: 60px;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    text-align: center;
+    line-height: 1.3;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+
+  /* Golden quotes section */
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .quote-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1.25rem;
+    border-left: 4px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-card::before {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    right: 0.5rem;
+    font-size: 4rem;
+    font-family: 'Noto Serif TC', serif;
+    color: rgba(255,255,255,0.08);
+    pointer-events: none;
+  }
+
+  .quote-card.gold-border { border-left-color: var(--gold); }
+
+  .quote-text {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Comm bars */
+  .comm-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .comm-label { font-size: 0.72rem; color: var(--muted); min-width: 50px; }
+
+  .comm-track {
+    flex: 1;
+    height: 8px;
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .comm-fill {
+    height: 100%;
+    background: var(--accent);
+  }
+
+  .comm-pct { font-size: 0.72rem; font-weight: 600; color: var(--ink); min-width: 30px; }
+
+  /* Overview map */
+  .overview-map {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  .ov-card {
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    background: white;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .ov-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-top-color: var(--accent-light);
+  }
+
+  .ov-num {
+    font-size: 0.62rem;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .ov-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0.3rem 0;
+  }
+
+  .ov-desc {
+    font-size: 0.68rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .main {
+      grid-template-columns: 1fr;
+      padding: 1.5rem;
+    }
+    .sidebar {
+      position: static;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+    .module-btn {
+      width: auto;
+      border: 1px solid var(--border);
+      border-left: none;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.72rem;
+      border-radius: 2px;
+    }
+    .module-btn.active { border-color: var(--accent); }
+    .sidebar-title { width: 100%; }
+    .framework { grid-template-columns: repeat(3, 1fr); }
+    .overview-map { grid-template-columns: repeat(2, 1fr); }
+    .risk-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .header { padding: 1.25rem; }
+    .nav { padding: 0.6rem 1.25rem; }
+    .main { padding: 1rem; }
+    .spin-grid { grid-template-columns: 1fr; }
+    .overview-map { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>壽險顧問訓練筆記</h1>
+      <div class="subtitle">12 個主題模組 · 系統化複習</div>
+    </div>
+    <div class="header-right">108–109年 訓練紀錄整理</div>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="nav-inner">
+    <div class="nav-pill active" onclick="showModule('overview')">總覽</div>
+    <div class="nav-pill" onclick="showModule('m1')">01 心態定位</div>
+    <div class="nav-pill" onclick="showModule('m2')">02 客戶開發</div>
+    <div class="nav-pill" onclick="showModule('m3')">03 起商 OI</div>
+    <div class="nav-pill" onclick="showModule('m4')">04 需求分析 FF</div>
+    <div class="nav-pill" onclick="showModule('m5')">05 族群切入</div>
+    <div class="nav-pill" onclick="showModule('m6')">06 建議書 P1/P2</div>
+    <div class="nav-pill" onclick="showModule('m7')">07 促成 Close</div>
+    <div class="nav-pill" onclick="showModule('m8')">08 售後 Ref</div>
+    <div class="nav-pill" onclick="showModule('m9')">09 時間管理</div>
+    <div class="nav-pill" onclick="showModule('m10')">10 溝通心理</div>
+    <div class="nav-pill" onclick="showModule('m11')">11 商品知識</div>
+    <div class="nav-pill" onclick="showModule('m12')">12 個人品牌</div>
+    <div class="nav-pill" onclick="showModule('quotes')">金句錄</div>
+  </div>
+</div>
+
+<div class="main">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-title">模組導覽</div>
+    <button class="module-btn active" onclick="showModule('overview')"><span class="module-num">00</span>總覽地圖</button>
+    <button class="module-btn" onclick="showModule('m1')"><span class="module-num">01</span>職業心態與自我定位</button>
+    <button class="module-btn" onclick="showModule('m2')"><span class="module-num">02</span>客戶開發 Searching</button>
+    <button class="module-btn" onclick="showModule('m3')"><span class="module-num">03</span>起商探客 OI</button>
+    <button class="module-btn" onclick="showModule('m4')"><span class="module-num">04</span>家庭需求分析 FF</button>
+    <button class="module-btn" onclick="showModule('m5')"><span class="module-num">05</span>各族群需求切入</button>
+    <button class="module-btn" onclick="showModule('m6')"><span class="module-num">06</span>建議書說明 P1/P2</button>
+    <button class="module-btn" onclick="showModule('m7')"><span class="module-num">07</span>促成 Close</button>
+    <button class="module-btn" onclick="showModule('m8')"><span class="module-num">08</span>售後服務與 Ref</button>
+    <button class="module-btn" onclick="showModule('m9')"><span class="module-num">09</span>當下約與時間管理</button>
+    <button class="module-btn" onclick="showModule('m10')"><span class="module-num">10</span>銷售心理與溝通</button>
+    <button class="module-btn" onclick="showModule('m11')"><span class="module-num">11</span>商品知識補充</button>
+    <button class="module-btn" onclick="showModule('m12')"><span class="module-num">12</span>市場開拓與個人品牌</button>
+    <button class="module-btn" onclick="showModule('quotes')"><span class="module-num">★</span>金句錄</button>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <div id="panel-overview" class="module-panel active">
+      <div class="panel-header">
+        <div class="panel-num">00</div>
+        <div class="panel-title">全覽地圖</div>
+      </div>
+      <div class="overview-map">
+        <div class="ov-card" onclick="showModule('m1')">
+          <div class="ov-num">模組 01</div>
+          <div class="ov-title">職業心態</div>
+          <div class="ov-desc">Vision / Mission / Core Values · LP 定位 · Tier 服務架構</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m2')">
+          <div class="ov-num">模組 02</div>
+          <div class="ov-title">客戶開發</div>
+          <div class="ov-desc">CHINA 條件 · 五同名單 · 名單管理 · 推薦人運用</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m3')">
+          <div class="ov-num">模組 03</div>
+          <div class="ov-title">起商 OI</div>
+          <div class="ov-desc">Why Prudential · 職涯說明 · SPIN 問法 · 保障需求計劃</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m4')">
+          <div class="ov-num">模組 04</div>
+          <div class="ov-title">需求分析 FF</div>
+          <div class="ov-desc">三大風險 · 費用架構 · 生命經濟價值 · 各項支出細目</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m5')">
+          <div class="ov-num">模組 05</div>
+          <div class="ov-title">族群切入</div>
+          <div class="ov-desc">家庭有子 · 單身族群 · 醫療需求 · 反對問題處理</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m6')">
+          <div class="ov-num">模組 06</div>
+          <div class="ov-title">建議書 P1/P2</div>
+          <div class="ov-desc">腳本準備 · 說明順序 · 儲蓄險切入 · WL 價值</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m7')">
+          <div class="ov-num">模組 07</div>
+          <div class="ov-title">促成 Close</div>
+          <div class="ov-desc">C / Seek / Obligation · 故事 Close · 反對處理 5 次</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m8')">
+          <div class="ov-num">模組 08</div>
+          <div class="ov-title">售後 Ref</div>
+          <div class="ov-desc">要 Ref 的時機 · Ask the Man · 5 次名單 · After FF Ref</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m9')">
+          <div class="ov-num">模組 09</div>
+          <div class="ov-title">時間管理</div>
+          <div class="ov-desc">BTP 計劃表 · 當下約 · FF→PC 愈快愈好</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m10')">
+          <div class="ov-num">模組 10</div>
+          <div class="ov-title">溝通心理</div>
+          <div class="ov-desc">買 vs 不買的心理 · 溝通三維度 · 感性決定 · 先 Care</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m11')">
+          <div class="ov-num">模組 11</div>
+          <div class="ov-title">商品知識</div>
+          <div class="ov-desc">三帳號 · 利率型 vs Pru · 退休資金 · WL 價值</div>
+        </div>
+        <div class="ov-card" onclick="showModule('m12')">
+          <div class="ov-num">模組 12</div>
+          <div class="ov-title">個人品牌</div>
+          <div class="ov-desc">理想客戶畫像 · 市場開拓 · 品牌建立 · 理財紀律</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <div class="card wide">
+          <div class="card-title dark">銷售主流程</div>
+          <div class="flow">
+            <div class="flow-step">開發 Searching</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">起商 OI</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">需求分析 FF</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">建議書 P1</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">方案說明 P2</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">促成 Close</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">服務 &amp; Ref</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 1 -->
+    <div id="panel-m1" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">01</div>
+        <div class="panel-title">職業心態與自我定位</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">LP 核心框架</div>
+          <div class="risk-grid" style="margin-top:0;">
+            <div class="risk-item r1"><div class="risk-name">銷售途徑</div><div class="risk-sub">Life Planner</div></div>
+            <div class="risk-item r2"><div class="risk-name">商品</div><div class="risk-sub">量身訂作·需求導向</div></div>
+            <div class="risk-item r3"><div class="risk-name">銷售方式</div><div class="risk-sub">N.B.S</div></div>
+          </div>
+          <div style="text-align:center; margin-top:0.75rem; font-size:0.75rem; font-weight:600; background:var(--ink); color:var(--paper); padding:0.4rem;">核心 Vision / Mission / Core Values</div>
+        </div>
+        <div class="card">
+          <div class="card-title">LP 的本質</div>
+          <ul class="item-list">
+            <li><strong>LP = Love + Care</strong>，陪伴客戶一生的規劃者</li>
+            <li>壽險顧問即是醫生——把對方當成人，不只是病人</li>
+            <li>「相信就有，開口就有，行動就有」</li>
+            <li>因為相信自己的職業極有價值</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">服務策略 Tier 架構</div>
+          <div class="tier-box">
+            <div class="tier-label">Tier 1｜加入保險之前</div>
+            <div class="tier-content">
+              ① 向準保戶說明保障的重要性<br>
+              ② 透過需求分析了解客戶需求（第一次碰面）<br>
+              ③ 提供最佳解決方案，完成銷售（第二次碰面）
+            </div>
+          </div>
+          <div class="tier-box">
+            <div class="tier-label">Tier 2｜售後服務</div>
+            <div class="tier-content">
+              定期與客戶聯絡 · 具備解決問題的能力<br>
+              週年檢視 · 不可 over promise · 不要不懂裝懂
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">心態關鍵</div>
+          <ul class="item-list">
+            <li>反對意見是理所當然的，拒絕是正常的</li>
+            <li>沒有成績，什麼都是假的</li>
+            <li>Mindset is First：自信是包裝出來的</li>
+            <li>撞牆時別繞過去——<strong>攀過去</strong></li>
+            <li>成功是自己體驗到的過程，成就是給別人看的</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 2 -->
+    <div id="panel-m2" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">02</div>
+        <div class="panel-title">客戶開發 Searching</div>
+      </div>
+      <div class="cards">
+        <div class="card wide">
+          <div class="card-title">CHINA 準保戶五條件</div>
+          <div class="framework">
+            <div class="fw-item"><span class="fw-letter">C</span><span class="fw-word">Character</span><span class="fw-desc">人格特質，希望你成功的</span></div>
+            <div class="fw-item"><span class="fw-letter">H</span><span class="fw-word">Health</span><span class="fw-desc">符合承保要求</span></div>
+            <div class="fw-item"><span class="fw-letter">I</span><span class="fw-word">Income</span><span class="fw-desc">穩定收入，具繳費能力</span></div>
+            <div class="fw-item"><span class="fw-letter">N</span><span class="fw-word">Needs</span><span class="fw-desc">有壽險需求</span></div>
+            <div class="fw-item"><span class="fw-letter">A</span><span class="fw-word">Approachable</span><span class="fw-desc">可接觸到的、住得近</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">開發的基本原則</div>
+          <ul class="item-list">
+            <li>開發新客戶時間至少佔 <strong>7 成</strong></li>
+            <li>固定服務時間，其餘全部用於開發</li>
+            <li>先找出 10-20 個符合條件的人</li>
+            <li>給自己開發壓力，定期做外部展示活動</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">五同名單表</div>
+          <ul class="item-list">
+            <li>固定的同學會（長期互動）</li>
+            <li>固定的聚會</li>
+            <li>之前的同事</li>
+            <li>同家 / 學同 / 專同 / 家同</li>
+          </ul>
+          <div style="margin-top:0.75rem;">
+            <div class="quote-block">至少 1000 個名單<br>20-10-千分之5 法則</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">第三者力量</div>
+          <ul class="item-list">
+            <li>第三者影響力儘早運用</li>
+            <li>推薦原因由他（不輕鬆隨便）</li>
+            <li><strong>承諾</strong>：第一次不銷售任何商品</li>
+            <li>由您決定下次碰面與否</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">名單管理</div>
+          <ul class="item-list">
+            <li>每天新增推薦名單至 suspect list</li>
+            <li>推薦名單要儘快 Calling</li>
+            <li>盡力問到：綽號、小名、英文名字</li>
+            <li>性別一定要問，打電話的稱呼</li>
+            <li>生日賀卡 + 電話，記錄結婚紀念日</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 3 -->
+    <div id="panel-m3" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">03</div>
+        <div class="panel-title">起商探客 OI</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">OI 的目的</div>
+          <ul class="item-list">
+            <li>讓對方知道你「玩真的」：軟性展示、有趣、拉近彼此</li>
+            <li>OI 之前，花 5 分鐘談 Why Prudential</li>
+            <li>自己職涯 vs LP 職涯（讓對方了解）</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">OI 流程</div>
+          <div class="flow" style="flex-direction:column; align-items:flex-start; gap:0.4rem;">
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="font-size:0.68rem;">介紹公司</div><div class="flow-arrow">→</div><div style="font-size:0.75rem;">Why Prudential</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="font-size:0.68rem;">介紹 LP</div><div class="flow-arrow">→</div><div style="font-size:0.75rem;">量身訂做 = NBS</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="font-size:0.68rem;">介紹服務</div><div class="flow-arrow">→</div><div style="font-size:0.75rem;">Tier 1 &amp; 2</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="font-size:0.68rem;">保障計劃</div><div class="flow-arrow">→</div><div style="font-size:0.75rem;">年收 10 倍，保費 10%</div></div>
+          </div>
+        </div>
+        <div class="card wide">
+          <div class="card-title">SPIN 問法</div>
+          <div class="spin-grid">
+            <div class="spin-item">
+              <div class="spin-letter">S</div>
+              <div class="spin-name">Situation 情境性</div>
+              <div class="spin-desc">事實、情況，已發生的；了解背景基本資訊</div>
+            </div>
+            <div class="spin-item">
+              <div class="spin-letter">P</div>
+              <div class="spin-name">Problem 探索性</div>
+              <div class="spin-desc">了解情況背後的動機（Why / Who / When / Where / What / How）</div>
+            </div>
+            <div class="spin-item">
+              <div class="spin-letter">I</div>
+              <div class="spin-name">Implication 暗示性</div>
+              <div class="spin-desc">尚未發生的問題，引導對方感受潛在風險</div>
+            </div>
+            <div class="spin-item">
+              <div class="spin-letter">N</div>
+              <div class="spin-name">Need-payoff 解決性</div>
+              <div class="spin-desc">讓客戶說出需要解決的問題，喚起解決意願</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">關鍵問句</div>
+          <div class="quote-block">「假設明天身故了，您的家人會如何運用這筆保險金？」</div>
+          <ul class="item-list" style="margin-top:0.5rem;">
+            <li>Ask the man：小名、個性、興趣、為何推薦、已婚未婚？</li>
+            <li>OI 可多人，所以一定要個人（每人想法不同）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 4 -->
+    <div id="panel-m4" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">04</div>
+        <div class="panel-title">家庭需求分析 FF</div>
+      </div>
+      <div class="cards">
+        <div class="card wide">
+          <div class="card-title">三大風險框架</div>
+          <div class="risk-grid">
+            <div class="risk-item r1">
+              <div class="risk-icon">⚡</div>
+              <div class="risk-name">走得太早</div>
+              <div class="risk-sub">死亡保障<br>LNB · 分期給付<br>身故：把握一切都 cover</div>
+            </div>
+            <div class="risk-item r2">
+              <div class="risk-icon">⏳</div>
+              <div class="risk-name">活得太久</div>
+              <div class="risk-sub">年金 · 退休規劃<br>帳戶價值持續累計<br>→ 保價金</div>
+            </div>
+            <div class="risk-item r3">
+              <div class="risk-icon">🔗</div>
+              <div class="risk-name">走不了</div>
+              <div class="risk-sub">殘廢 · 長照<br>完全失能 / 7 種狀況<br>Long Term Care</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">費用結構（必要支出）</div>
+          <ul class="item-list">
+            <li><strong>生活費</strong>：食衣住行，基本日常</li>
+            <li><strong>教育費</strong>：學業、才藝、補習</li>
+            <li><strong>房貸</strong>：水電瓦斯、管理費</li>
+            <li><strong>父母奉養金</strong></li>
+            <li><strong>醫療</strong>：看護、手術、藥品、病房</li>
+            <li><strong>退休準備</strong></li>
+          </ul>
+          <div class="quote-block" style="margin-top:0.75rem;">最先問、因最清楚</div>
+        </div>
+        <div class="card">
+          <div class="card-title gold">生命的經濟價值</div>
+          <ul class="item-list">
+            <li>薪水 × 工作年數 = 生命的經濟價值</li>
+            <li>保額 = 年收的 10 倍</li>
+            <li>保費 = 收入的 10%</li>
+            <li>三口之家費用：1440萬（20年 Total）</li>
+          </ul>
+          <div class="quote-block" style="margin-top:0.5rem;">「還記得花了這些錢後，如果你走了，家人會拿到多少錢？」</div>
+        </div>
+        <div class="card">
+          <div class="card-title">FF 核心原則</div>
+          <ul class="item-list">
+            <li>FF = 現在的生活、未來的生活藍圖</li>
+            <li>重提 FF 的事實及感覺，不是只有冰冷文字</li>
+            <li>實際談論客戶的情況（非說教）</li>
+            <li>問題要以有限選項（一、兩個），是非題形式來問</li>
+            <li>情感面的代入 → 真的發生，那畫面是動態的什麼？</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 5 -->
+    <div id="panel-m5" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">05</div>
+        <div class="panel-title">各族群需求切入</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">家庭有子族群</div>
+          <ul class="item-list">
+            <li>說明順序：明天就發生+很嚴重 → 死亡 → 失能 → LNB</li>
+            <li>房貸反對：「孩子還這麼小！風險不會等你」</li>
+            <li>教育費反對：「和去打工！小孩還這麼小！」</li>
+            <li>在反對問題前，多詢問原因（為什麼要買房？選這裡？）</li>
+          </ul>
+          <div class="quote-block" style="margin-top:0.5rem;">「假如沒有明天」<br>人最重要的是真時間</div>
+        </div>
+        <div class="card">
+          <div class="card-title">單身族群</div>
+          <ul class="item-list">
+            <li>自願性（有選擇）vs 非自願性（有計劃）</li>
+            <li>走得太早 → 父母還有多久退休？</li>
+            <li>活得太久 → 財產 50 年後還能用嗎？→ 年金</li>
+            <li>走不了 → 誰來照顧你？他們工作怎麼辦？能顧多久？</li>
+          </ul>
+          <div class="quote-block" style="margin-top:0.5rem;">「如果有得選擇呢？」</div>
+        </div>
+        <div class="card">
+          <div class="card-title">醫療需求切入</div>
+          <ul class="item-list">
+            <li>「不怕死，怕死不了」</li>
+            <li>在醫院期間不長，出院之後呢？</li>
+            <li>費用：看護、薪資損失、手術、藥品、病房</li>
+            <li>健保 → 死亡（基本給付），其餘需自費</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title dark">反對問題心法</div>
+          <ul class="item-list">
+            <li>對客戶的反對問題，我都自設「很久以後」「時間很充足」</li>
+            <li>→ 人最重要的是真時間，假如沒有明天</li>
+            <li>每個反對問題都要探索背後原因</li>
+            <li>先稱讚，再溝通（先 Yes but 再說明）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 6 -->
+    <div id="panel-m6" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">06</div>
+        <div class="panel-title">建議書說明 P1 / P2</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">P1 準備原則</div>
+          <ul class="item-list">
+            <li>腳本先完成</li>
+            <li>以自己身為保戶的角度，用淺顯易懂的方式傳遞概念</li>
+            <li>Why Prudential → 接上次打電話說的家庭保障計劃</li>
+            <li>用 SPIN 的方法問 6 個核心，釐清背景</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">P1 說明順序</div>
+          <div class="flow" style="flex-direction:column; align-items:flex-start; gap:0.4rem;">
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#c94040;font-size:0.68rem;">死亡</div><div style="font-size:0.75rem;">身故 · LNB · 分期給付</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#4a7ab5;font-size:0.68rem;">失能</div><div style="font-size:0.75rem;">完全失能 · 帳戶價值累計</div></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;"><div class="flow-step" style="background:#5a9a6a;font-size:0.68rem;">老</div><div style="font-size:0.75rem;">老年住院 · 長照 LTC</div></div>
+          </div>
+          <div style="margin-top:0.75rem; font-size:0.75rem; color:var(--muted);">先設計大的費用</div>
+        </div>
+        <div class="card">
+          <div class="card-title gold">WL 的六大價值</div>
+          <ul class="item-list">
+            <li>子女未來的護身符（保價金：孳息脫費 + 退休金）</li>
+            <li>保障未來之資產</li>
+            <li>可靠的資產 = 保價金（可直接動用，不需保證人）</li>
+            <li>遺產稅源</li>
+            <li>資產配置</li>
+            <li>現金作為遺產分配的方法，最無爭議</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">P2 儲蓄險切入</div>
+          <ul class="item-list">
+            <li>為何想買？為何想一年存這些？有個目標嗎？</li>
+            <li>FF = 喚起需求 + 原先投保之問題</li>
+            <li>幫小孩買 → 贈學稅問題（贈與額度計算）</li>
+            <li>死亡險最低稅賦額 670 萬，超出者稅 20%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 7 -->
+    <div id="panel-m7" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">07</div>
+        <div class="panel-title">促成 Close</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">Close 工具 C.S.E</div>
+          <ul class="item-list">
+            <li><strong>C（Choice）</strong>：Can you qualify? Live or Die？製造選擇</li>
+            <li><strong>Seek</strong>：尋找真正原因，重新確認，看怎麼調整保費</li>
+            <li><strong>Example</strong>：與客戶有關的故事（各項費用）</li>
+            <li><strong>Obligation</strong>：喚起責任感</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">關鍵 Close 話術</div>
+          <div class="quote-block">「這筆錢如何照顧你在意的人」→ 要敘述、畫面</div>
+          <div class="quote-block">「如果這是必要的，那為何要用比較貴的成本來買？」</div>
+          <div class="quote-block">「花多少？你付出的。賠多少？跟你拿到的。划算嗎？」</div>
+        </div>
+        <div class="card">
+          <div class="card-title">反對問題處理</div>
+          <ul class="item-list">
+            <li>反對問題至少要處理 <strong>5 次</strong></li>
+            <li>不安不滿 → OI 確定購買 → P1、P2、Close</li>
+            <li>為何馬上決定優於延後？</li>
+            <li>① 符合你當下的情況</li>
+            <li>② 想買不見得買得到（風險的不可見性）</li>
+            <li>③ 這個決定是最好的</li>
+            <li>「你不是很認同嗎？那就當下決定。」</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">故事 Close</div>
+          <ul class="item-list">
+            <li>複習法 + 景象（FF 談過的東西）</li>
+            <li>受益人會面臨的情況</li>
+            <li>當下完成投保的程序</li>
+            <li>PC → N，說故事是關鍵</li>
+          </ul>
+          <div class="quote-block" style="margin-top:0.5rem;">「我相信你會這樣能實際照顧家」</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 8 -->
+    <div id="panel-m8" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">08</div>
+        <div class="panel-title">售後服務與推薦介紹 Ref</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">Ref 的時機</div>
+          <ul class="item-list">
+            <li>遞送保單、理賠服務時更好要名單</li>
+            <li>20-10-千分之5法則：每個階段都能要 Ref</li>
+            <li>客戶推薦，是來自從第一印象的累積</li>
+            <li>重視推薦介紹，自己重視，客戶才能重視</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">要 Ref 的三步驟</div>
+          <div class="tier-box">
+            <div class="tier-label">① 讚美客戶</div>
+            <div class="tier-content">真誠稱讚，讓對方開心說話</div>
+          </div>
+          <div class="tier-box">
+            <div class="tier-label">② 請客戶給意見</div>
+            <div class="tier-content">哪裡不錯？哪裡可以更好？具體說明</div>
+          </div>
+          <div class="tier-box">
+            <div class="tier-label">③ 說明原因，提出需求</div>
+            <div class="tier-content">「因為我想幫台灣家庭了解保障不足的問題，所以需要你推薦結婚、有孩子的朋友」</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Ask the Man 要點</div>
+          <ul class="item-list">
+            <li>小名、個性、興趣、為何推薦此人？已婚未婚？</li>
+            <li>「用一句話形容此人，會是？」</li>
+            <li>「可以提到你的名字嗎？」</li>
+            <li>完全不可提供：推薦人買了什麼、談了什麼</li>
+            <li>「跟此人聯絡後的情況我會再跟你說！」</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">After FF 要 Ref</div>
+          <ul class="item-list">
+            <li>假如有一天 A 身亡，A's wife 找你幫忙：</li>
+            <li>房貸？Y/N　教育費？Y/N　生活費？Y/N</li>
+            <li>「時間可以沖淡傷痛，但幫不走這些費用」</li>
+            <li>不過現在 A 仍健在，你願不願意把他介紹給我？</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">PICA 服務架構</div>
+          <div class="tags">
+            <span class="tag red">P - Plan 計劃</span>
+            <span class="tag red">I - Information 資訊</span>
+            <span class="tag red">C - Continue 持續</span>
+            <span class="tag red">A - Awareness 提醒</span>
+          </div>
+          <ul class="item-list" style="margin-top:0.75rem;">
+            <li>生日賀卡 + 電話</li>
+            <li>已結婚的 → 記錄結婚紀念日</li>
+            <li>週年時的服務：列出有關係者</li>
+            <li>思考客戶的五同：「我該怎麼問比較好？」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 9 -->
+    <div id="panel-m9" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">09</div>
+        <div class="panel-title">當下約與時間管理</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">BTP 計劃表</div>
+          <ul class="item-list">
+            <li>FF → PC 愈快愈好（客戶 100% 遺忘）</li>
+            <li>計劃表：P → P1 大約 15-20 分鐘</li>
+            <li>複習 FF 表所提過的東西</li>
+            <li>細心觀察責任感</li>
+            <li>把大目標拆成小目標</li>
+            <li>走出舒適圈，即時反饋</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">當下約的原則</div>
+          <div class="quote-block">晚出來的班表，就需要約一個聯絡的時間</div>
+          <ul class="item-list" style="margin-top:0.5rem;">
+            <li>專業人士的時間管理：當下確認 or 敲定聯絡時間</li>
+            <li>告知何時會聯絡</li>
+            <li>要勉強你的客戶</li>
+            <li>3 天後中午確認可否</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">每週工作計劃</div>
+          <ul class="item-list">
+            <li>Searching：起商探客（固定時間）</li>
+            <li>Selling：銷售流程（OI→FF→PC→Ref）</li>
+            <li>Service：遞送保單、理賠、保單變更</li>
+            <li>Study：證照考試、商品研究、外聘課程</li>
+            <li>首月 30 件</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 10 -->
+    <div id="panel-m10" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">10</div>
+        <div class="panel-title">銷售心理與溝通技巧</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">客戶為何買</div>
+          <ul class="item-list">
+            <li>每個人的開關不同</li>
+            <li>使他想到別人對他的好</li>
+            <li>促成決定的 Key：確保未來的生活不會破碎</li>
+            <li>買東西不是買這種東西本身，是買一個生活形態</li>
+            <li>「生活即銷售」：Movie / Books / Life</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">客戶為何不買</div>
+          <ul class="item-list">
+            <li>基本弱點：拖延、省力、迴避、缺乏決心</li>
+            <li>為何拖延？可能有更好的 / 在尋求認同</li>
+            <li>快掛了 — False（借口）</li>
+            <li>找不到方法 — True → 還有什麼方法沒試過？</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">溝通三維度</div>
+          <div style="margin-top:0.5rem;">
+            <div class="comm-bar">
+              <div class="comm-label">言辭</div>
+              <div class="comm-track"><div class="comm-fill" style="width:7%"></div></div>
+              <div class="comm-pct">7%</div>
+            </div>
+            <div class="comm-bar">
+              <div class="comm-label">聽覺</div>
+              <div class="comm-track"><div class="comm-fill" style="width:38%; background:var(--gold);"></div></div>
+              <div class="comm-pct">38%</div>
+            </div>
+            <div class="comm-bar">
+              <div class="comm-label">視覺感覺</div>
+              <div class="comm-track"><div class="comm-fill" style="width:55%; background:var(--ink);"></div></div>
+              <div class="comm-pct">55%</div>
+            </div>
+          </div>
+          <div class="quote-block" style="margin-top:0.75rem;">感性做決定，理性為決定辯護</div>
+        </div>
+        <div class="card">
+          <div class="card-title">溝通核心原則</div>
+          <ul class="item-list">
+            <li>先 care，再 know</li>
+            <li>Nobody care how much you know, unless they know how much you care</li>
+            <li>聽你講是為了要了解，而非回答</li>
+            <li>用你的語言跟你講，你就會聽到心裡</li>
+            <li>做了什麼是客戶會發現的（A）；沒做什麼也是（B）</li>
+          </ul>
+        </div>
+        <div class="card wide">
+          <div class="card-title">客戶想問而沒問的四件事</div>
+          <div class="tags">
+            <span class="tag red">① 舒適度</span>
+            <span class="tag red">② 信任度</span>
+            <span class="tag red">③ 執行度（你知道你在幹嗎）</span>
+            <span class="tag red">④ 誠意</span>
+          </div>
+          <div style="margin-top:0.75rem; font-size:0.78rem; color:var(--muted);">① - ④ 先建立，② - ③ 持續維護</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 11 -->
+    <div id="panel-m11" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">11</div>
+        <div class="panel-title">商品知識補充</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">三帳號概念</div>
+          <div class="accounts">
+            <div class="account-circle ac1">花掉的</div>
+            <div class="account-circle ac2">存款</div>
+            <div class="account-circle ac3">投資</div>
+            <div class="account-arrow">+</div>
+            <div class="account-shield">保德信<br>保護帳號</div>
+          </div>
+          <div style="font-size:0.72rem; color:var(--muted); margin-top:0.75rem;">收入沒了，保險保護這三個帳號繼續運作</div>
+        </div>
+        <div class="card">
+          <div class="card-title">利率型 vs Pru 利率型</div>
+          <ul class="item-list">
+            <li><strong>利率型</strong>：保額逐年下降、保價金下降、以宣告利率為基礎</li>
+            <li>美國公債利率逐年降 → 影響宣告利率</li>
+            <li><strong>Pru 利率型（標準體）</strong>：200W 美金內免體檢，適合高齡、無體況者</li>
+            <li><strong>境外保單</strong>：保險金匯回 + 20% 所得；遺產稅一定被課</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">停效與否（負債的問題）</div>
+          <ul class="item-list">
+            <li>借的錢花到其他地方</li>
+            <li>抵押品無增值的機會</li>
+            <li>借款無法轉換收益空間</li>
+            <li>利息與回收無投資價值</li>
+            <li>槓桿比例永遠負大於正</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title gold">退休資金三分法</div>
+          <ul class="item-list">
+            <li>40-60 歲：保障工作能力（WL / FZL / TL）</li>
+            <li>60 歲以上：長壽風險是其他所有風險之乘數</li>
+            <li>創造終身保證收入 = 年金</li>
+            <li>Pay checks &amp; Play checks</li>
+            <li>投資 → 看 Timing（進/出場時機）</li>
+            <li>理財 → 看 Time（時間紀律，享受長期複利）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 12 -->
+    <div id="panel-m12" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">12</div>
+        <div class="panel-title">市場開拓與個人品牌</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">理想客戶畫像</div>
+          <ul class="item-list">
+            <li>年齡：28 → 35 歲</li>
+            <li>職業：服務業、公教、開店</li>
+            <li>背景：有家庭規劃需求</li>
+            <li>我現在的專長：單身父母奉養金、人生階段規劃</li>
+          </ul>
+          <div class="tags" style="margin-top:0.75rem;">
+            <span class="tag">共同背景市場</span>
+            <span class="tag">聊得來的市場</span>
+            <span class="tag">自訂目標市場</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">個人品牌建立</div>
+          <ul class="item-list">
+            <li>個人品牌 → 來自吹毛求疵的小習慣</li>
+            <li>費用是消耗的，資產是累積的</li>
+            <li>因此長期才能做好準備</li>
+            <li>買保險 = 建立理財紀律</li>
+            <li>問客戶：「你會怎麼選擇保險公司，你 care 什麼？」</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">品牌在各環節的體現</div>
+          <div class="tier-box">
+            <div class="tier-label">FF 時談</div>
+            <div class="tier-content">喚起需求，費用是消耗，資產是累積</div>
+          </div>
+          <div class="tier-box">
+            <div class="tier-label">P1 時談</div>
+            <div class="tier-content">商品說明，長期才能做好準備</div>
+          </div>
+          <div class="tier-box">
+            <div class="tier-label">Close 時談</div>
+            <div class="tier-content">建立理財紀律，你的人生在累積還是消耗資產？</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">市場開拓行動</div>
+          <ul class="item-list">
+            <li>設定開發目標</li>
+            <li>樂於與人互動，並紀錄下來，名單標籤化</li>
+            <li>給子明確方向（剛結婚？剛買房？剛生小孩？）</li>
+            <li>用包裝：大家喜歡的形象</li>
+            <li>定期做外部展示活動</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTES -->
+    <div id="panel-quotes" class="module-panel">
+      <div class="panel-header">
+        <div class="panel-num">★</div>
+        <div class="panel-title">金句錄</div>
+      </div>
+      <div class="quotes-grid">
+        <div class="quote-card">
+          <div class="quote-text">相信就有，開口就有，行動就有</div>
+        </div>
+        <div class="quote-card gold-border">
+          <div class="quote-text">保險只是一張紙，我們賣那紙背後的承諾</div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-text">Nobody care how much you know, unless they know how much you care</div>
+        </div>
+        <div class="quote-card gold-border">
+          <div class="quote-text">聽你講是為了要了解，而非回答</div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-text">假如沒有明天<br>人最重要的是真時間</div>
+        </div>
+        <div class="quote-card gold-border">
+          <div class="quote-text">撞牆時，牆比頭硬，別不斷撞，別繞過去，攀過去。牆壁後面的東西，值不值得你越過這道牆？</div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-text">小錢保大錢，拿不出來的</div>
+        </div>
+        <div class="quote-card gold-border">
+          <div class="quote-text">死得早、活得久，Logic 是一樣的</div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-text">做了什麼是客戶會發現的（A）；沒做什麼是客戶會發現的（B）</div>
+        </div>
+        <div class="quote-card gold-border">
+          <div class="quote-text">學到的東西一定要用出來，執行。今天學到，今天去試。</div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-text">成功 ≠ 成就。成就給別人看的，成功是自己體驗到的過程。</div>
+        </div>
+        <div class="quote-card gold-border">
+          <div class="quote-text">花多少？你付出的。賠多少？跟你拿到的。划算嗎？</div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-text">這個地方的規矩是只結不離，但結婚有年限，可續。</div>
+        </div>
+        <div class="quote-card gold-border">
+          <div class="quote-text">試著失敗，得到經驗。持續去做一件小事。</div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-text">個人品牌，來自吹毛求疵的小習慣</div>
+        </div>
+        <div class="quote-card gold-border">
+          <div class="quote-text">費用是消耗的，資產是累積的。因此長期才能做好準備。</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+  function showModule(id) {
+    // Hide all panels
+    document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
+    // Show target
+    const panel = document.getElementById('panel-' + id);
+    if (panel) panel.classList.add('active');
+
+    // Update sidebar buttons
+    document.querySelectorAll('.module-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.module-btn').forEach(b => {
+      if (b.getAttribute('onclick') === `showModule('${id}')`) b.classList.add('active');
+    });
+
+    // Update nav pills
+    document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-pill').forEach(p => {
+      if (p.getAttribute('onclick') === `showModule('${id}')`) p.classList.add('active');
+    });
+
+    // Scroll to top of content
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
