@@ -66,7 +66,6 @@
   .header-right {
     margin-left: auto;
     font-size: 0.72rem;
-    color: var(--muted);
     color: #888;
   }
 
@@ -109,74 +108,15 @@
     border-color: var(--ink);
   }
 
-  /* Main layout */
+  /* Main layout - 徹底重構為極簡單欄佈局，並優雅置中 */
   .main {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 2rem 2.5rem;
+    padding: 2.5rem 2.5rem;
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 1fr;
     gap: 2rem;
     align-items: start;
-  }
-
-  /* Sidebar module list */
-  .sidebar {
-    position: sticky;
-    top: 160px;
-  }
-
-  .sidebar-title {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .module-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    width: 100%;
-    padding: 0.65rem 0.75rem;
-    background: none;
-    border: none;
-    border-left: 2px solid transparent;
-    text-align: left;
-    cursor: pointer;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 0.8rem;
-    color: var(--muted);
-    transition: all 0.18s;
-    line-height: 1.4;
-  }
-
-  .module-btn:hover {
-    background: var(--paper-dark);
-    color: var(--ink);
-    border-left-color: var(--border);
-  }
-
-  .module-btn.active {
-    background: var(--paper-dark);
-    color: var(--accent);
-    border-left-color: var(--accent);
-    font-weight: 500;
-  }
-
-  .module-num {
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: var(--accent);
-    min-width: 1.5rem;
-    opacity: 0.7;
-  }
-
-  .module-btn.active .module-num {
-    opacity: 1;
   }
 
   /* Content area */
@@ -268,10 +208,6 @@
 
   .card-title.gold { color: var(--gold); }
   .card-title.dark { color: var(--ink); }
-
-  .card-icon {
-    font-size: 0.9rem;
-  }
 
   /* List styles */
   .item-list {
@@ -586,20 +522,24 @@
 
   .comm-pct { font-size: 0.72rem; font-weight: 600; color: var(--ink); min-width: 30px; }
 
-  /* Overview map */
+  /* Overview map - 重構為響應式自適應無縫排版，解決拉長擠壓問題 */
   .overview-map {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
   }
 
   .ov-card {
     border: 1px solid var(--border);
     border-top: 3px solid var(--accent);
     background: white;
-    padding: 1rem;
+    padding: 1.25rem 1rem;
     cursor: pointer;
     transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 125px; /* 給予扎實的基底高度 */
   }
 
   .ov-card:hover {
@@ -614,14 +554,15 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    margin-bottom: 0.2rem;
   }
 
   .ov-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--ink);
-    margin: 0.3rem 0;
+    margin-bottom: 0.4rem;
   }
 
   .ov-desc {
@@ -630,30 +571,13 @@
     line-height: 1.5;
   }
 
-  /* Responsive */
+  /* Responsive 媒體查詢微調 */
   @media (max-width: 900px) {
     .main {
-      grid-template-columns: 1fr;
       padding: 1.5rem;
     }
-    .sidebar {
-      position: static;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-    }
-    .module-btn {
-      width: auto;
-      border: 1px solid var(--border);
-      border-left: none;
-      padding: 0.4rem 0.7rem;
-      font-size: 0.72rem;
-      border-radius: 2px;
-    }
-    .module-btn.active { border-color: var(--accent); }
-    .sidebar-title { width: 100%; }
     .framework { grid-template-columns: repeat(3, 1fr); }
-    .overview-map { grid-template-columns: repeat(2, 1fr); }
+    .overview-map { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
     .risk-grid { grid-template-columns: 1fr; }
   }
 
@@ -663,6 +587,7 @@
     .main { padding: 1rem; }
     .spin-grid { grid-template-columns: 1fr; }
     .overview-map { grid-template-columns: 1fr; }
+    .framework { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -699,10 +624,8 @@
 
 <div class="main">
   
-  <!-- Content -->
   <div class="content">
 
-    <!-- OVERVIEW -->
     <div id="panel-overview" class="module-panel active">
       <div class="panel-header">
         <div class="panel-num">00</div>
@@ -710,63 +633,87 @@
       </div>
       <div class="overview-map">
         <div class="ov-card" onclick="showModule('m1')">
-          <div class="ov-num">模組 01</div>
-          <div class="ov-title">職業心態</div>
+          <div>
+            <div class="ov-num">模組 01</div>
+            <div class="ov-title">職業心態</div>
+          </div>
           <div class="ov-desc">Vision / Mission / Core Values · LP 定位 · Tier 服務架構</div>
         </div>
         <div class="ov-card" onclick="showModule('m2')">
-          <div class="ov-num">模組 02</div>
-          <div class="ov-title">客戶開發</div>
+          <div>
+            <div class="ov-num">模組 02</div>
+            <div class="ov-title">客戶開發</div>
+          </div>
           <div class="ov-desc">CHINA 條件 · 五同名單 · 名單管理 · 推薦人運用</div>
         </div>
         <div class="ov-card" onclick="showModule('m3')">
-          <div class="ov-num">模組 03</div>
-          <div class="ov-title">起商 OI</div>
+          <div>
+            <div class="ov-num">模組 03</div>
+            <div class="ov-title">起商 OI</div>
+          </div>
           <div class="ov-desc">Why Transglobe · 職涯說明 · SPIN 問法 · 保障需求計劃</div>
         </div>
         <div class="ov-card" onclick="showModule('m4')">
-          <div class="ov-num">模組 04</div>
-          <div class="ov-title">需求分析 FF</div>
+          <div>
+            <div class="ov-num">模組 04</div>
+            <div class="ov-title">需求分析 FF</div>
+          </div>
           <div class="ov-desc">三大風險 · 費用架構 · 生命經濟價值 · 各項支出細目</div>
         </div>
         <div class="ov-card" onclick="showModule('m5')">
-          <div class="ov-num">模組 05</div>
-          <div class="ov-title">族群切入</div>
+          <div>
+            <div class="ov-num">模組 05</div>
+            <div class="ov-title">族群切入</div>
+          </div>
           <div class="ov-desc">家庭有子 · 單身族群 · 醫療需求 · 反對問題處理</div>
         </div>
         <div class="ov-card" onclick="showModule('m6')">
-          <div class="ov-num">模組 06</div>
-          <div class="ov-title">建議書 P1/P2</div>
+          <div>
+            <div class="ov-num">模組 06</div>
+            <div class="ov-title">建議書 P1/P2</div>
+          </div>
           <div class="ov-desc">腳本準備 · 說明順序 · 儲蓄險切入 · WL 價值</div>
         </div>
         <div class="ov-card" onclick="showModule('m7')">
-          <div class="ov-num">模組 07</div>
-          <div class="ov-title">促成 Close</div>
+          <div>
+            <div class="ov-num">模組 07</div>
+            <div class="ov-title">促成 Close</div>
+          </div>
           <div class="ov-desc">C / Seek / Obligation · 故事 Close · 反對處理 5 次</div>
         </div>
         <div class="ov-card" onclick="showModule('m8')">
-          <div class="ov-num">模組 08</div>
-          <div class="ov-title">售後 Ref</div>
+          <div>
+            <div class="ov-num">模組 08</div>
+            <div class="ov-title">售後 Ref</div>
+          </div>
           <div class="ov-desc">要 Ref 的時機 · Ask the Man · 5 次名單 · After FF Ref</div>
         </div>
         <div class="ov-card" onclick="showModule('m9')">
-          <div class="ov-num">模組 09</div>
-          <div class="ov-title">時間管理</div>
+          <div>
+            <div class="ov-num">模組 09</div>
+            <div class="ov-title">時間管理</div>
+          </div>
           <div class="ov-desc">訓練 計劃表 · 當下約 · FF→PC 愈快愈好</div>
         </div>
         <div class="ov-card" onclick="showModule('m10')">
-          <div class="ov-num">模組 10</div>
-          <div class="ov-title">溝通心理</div>
+          <div>
+            <div class="ov-num">模組 10</div>
+            <div class="ov-title">溝通心理</div>
+          </div>
           <div class="ov-desc">買 vs 不買的心理 · 溝通三維度 · 感性決定 · 先 Care</div>
         </div>
         <div class="ov-card" onclick="showModule('m11')">
-          <div class="ov-num">模組 11</div>
-          <div class="ov-title">商品知識</div>
+          <div>
+            <div class="ov-num">模組 11</div>
+            <div class="ov-title">商品知識</div>
+          </div>
           <div class="ov-desc">利率變動型壽險</div>
         </div>
         <div class="ov-card" onclick="showModule('m12')">
-          <div class="ov-num">模組 12</div>
-          <div class="ov-title">個人品牌</div>
+          <div>
+            <div class="ov-num">模組 12</div>
+            <div class="ov-title">個人品牌</div>
+          </div>
           <div class="ov-desc">理想客戶畫像 · 市場開拓 · 品牌建立 · 理財紀律</div>
         </div>
       </div>
@@ -793,7 +740,6 @@
       </div>
     </div>
 
-    <!-- MODULE 1 -->
     <div id="panel-m1" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">01</div>
@@ -849,7 +795,6 @@
       </div>
     </div>
 
-    <!-- MODULE 2 -->
     <div id="panel-m2" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">02</div>
@@ -909,7 +854,6 @@
       </div>
     </div>
 
-    <!-- MODULE 3 -->
     <div id="panel-m3" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">03</div>
@@ -919,7 +863,7 @@
         <div class="card">
           <div class="card-title">OI 的目的</div>
           <ul class="item-list">
-            <li>讓對方知道你「玩真的」：軟性展示、有趣、拉近彼此</li>
+            <li>讓對方知道你「玩真 的」：軟性展示、有趣、拉近彼此</li>
             <li>OI 之前，花 5 分鐘談 Why Transglobe</li>
             <li>自己職涯 vs 自己 職涯（讓對方了解）</li>
           </ul>
@@ -969,7 +913,6 @@
       </div>
     </div>
 
-    <!-- MODULE 4 -->
     <div id="panel-m4" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">04</div>
@@ -1031,7 +974,6 @@
       </div>
     </div>
 
-    <!-- MODULE 5 -->
     <div id="panel-m5" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">05</div>
@@ -1079,7 +1021,6 @@
       </div>
     </div>
 
-    <!-- MODULE 6 -->
     <div id="panel-m6" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">06</div>
@@ -1118,7 +1059,7 @@
         <div class="card">
           <div class="card-title">P2 儲蓄險切入</div>
           <ul class="item-list">
-            <li>為何想買？為何想一年存這些？有個目標嗎？</li>
+            <li>為何想買？為何想一年存 these？有個目標嗎？</li>
             <li>FF = 喚起需求 + 原先投保之問題</li>
             <li>幫小孩買 → 贈學稅問題（贈與額度計算）</li>
             <li>死亡險最低稅賦額 670 萬，超出者稅 20%</li>
@@ -1127,7 +1068,6 @@
       </div>
     </div>
 
-    <!-- MODULE 7 -->
     <div id="panel-m7" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">07</div>
@@ -1174,7 +1114,6 @@
       </div>
     </div>
 
-    <!-- MODULE 8 -->
     <div id="panel-m8" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">08</div>
@@ -1219,7 +1158,7 @@
           <div class="card-title">After FF 要 Ref</div>
           <ul class="item-list">
             <li>假如有一天 A 身亡，A's wife 找你幫忙：</li>
-            <li>房貸？Y/N　教育費？Y/N　生活費？Y/N</li>
+            <li>房貸？Y/N 教育費？Y/N 生活費？Y/N</li>
             <li>「時間可以沖淡傷痛，但幫不走這些費用」</li>
             <li>不過現在 A 仍健在，你願不願意把他介紹給我？</li>
           </ul>
@@ -1242,7 +1181,6 @@
       </div>
     </div>
 
-    <!-- MODULE 9 -->
     <div id="panel-m9" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">09</div>
@@ -1283,7 +1221,6 @@
       </div>
     </div>
 
-    <!-- MODULE 10 -->
     <div id="panel-m10" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">10</div>
@@ -1353,7 +1290,6 @@
       </div>
     </div>
 
-    <!-- MODULE 11 -->
     <div id="panel-m11" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">11</div>
@@ -1404,7 +1340,6 @@
       </div>
     </div>
 
-    <!-- MODULE 12 -->
     <div id="panel-m12" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">12</div>
@@ -1463,7 +1398,6 @@
       </div>
     </div>
 
-    <!-- QUOTES -->
     <div id="panel-quotes" class="module-panel">
       <div class="panel-header">
         <div class="panel-num">★</div>
@@ -1521,22 +1455,13 @@
       </div>
     </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
-
-<script>
+  </div></div><script>
   function showModule(id) {
     // Hide all panels
     document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
     // Show target
     const panel = document.getElementById('panel-' + id);
     if (panel) panel.classList.add('active');
-
-    // Update sidebar buttons
-    document.querySelectorAll('.module-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.module-btn').forEach(b => {
-      if (b.getAttribute('onclick') === `showModule('${id}')`) b.classList.add('active');
-    });
 
     // Update nav pills
     document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
