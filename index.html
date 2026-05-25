@@ -571,7 +571,7 @@
     line-height: 1.5;
   }
 
-  /* Responsive 媒體查詢微調 */
+  /* Responsive 媒體查詢微調與手機字級清晰放大優化 */
   @media (max-width: 900px) {
     .main {
       padding: 1.5rem;
@@ -582,12 +582,28 @@
   }
 
   @media (max-width: 600px) {
-    .header { padding: 1.25rem; }
-    .nav { padding: 0.6rem 1.25rem; }
-    .main { padding: 1rem; }
+    .header { padding: 1.5rem 1.25rem; }
+    .header h1 { font-size: 1.4rem; } /* 放大標題 */
+    .nav { padding: 0.6rem 1.25rem; top: 76px; }
+    .nav-pill { font-size: 0.85rem; padding: 0.4rem 0.9rem; } /* 放大橫列標籤 */
+    .main { padding: 1.25rem 1rem; gap: 1.5rem; }
+    
+    /* 手機版總覽方塊與一般卡片字體全面放大，提升通勤滑閱舒適度 */
+    .ov-title { font-size: 1.05rem; } 
+    .ov-desc { font-size: 0.85rem; line-height: 1.6; }
+    .card-title { font-size: 1.05rem; }
+    .item-list li { font-size: 0.92rem; line-height: 1.7; }
+    .quote-block { font-size: 0.92rem; line-height: 1.6; }
+    
+    /* 手機版專屬框架細緻化放大 */
     .spin-grid { grid-template-columns: 1fr; }
-    .overview-map { grid-template-columns: 1fr; }
-    .framework { grid-template-columns: 1fr; }
+    .spin-letter { font-size: 1.6rem; }
+    .spin-desc { font-size: 0.88rem; }
+    .tier-content { font-size: 0.9rem; line-height: 1.6; }
+    .overview-map { grid-template-columns: 1fr; gap: 1.25rem; }
+    .framework { grid-template-columns: 1fr; gap: 0.75rem; }
+    .fw-letter { font-size: 1.4rem; }
+    .fw-desc { font-size: 0.85rem; }
   }
 </style>
 </head>
@@ -863,7 +879,7 @@
         <div class="card">
           <div class="card-title">OI 的目的</div>
           <ul class="item-list">
-            <li>讓對方知道你「玩真 的」：軟性展示、有趣、拉近彼此</li>
+            <li>讓對方知道你「玩真的」：軟性展示、有趣、拉近彼此</li>
             <li>OI 之前，花 5 分鐘談 Why Transglobe</li>
             <li>自己職涯 vs 自己 職涯（讓對方了解）</li>
           </ul>
@@ -1441,7 +1457,7 @@
           <div class="quote-text">花多少？你付出的。賠多少？跟你拿到的。划算嗎？</div>
         </div>
         <div class="quote-card">
-          <div class="quote-text">這個地方的規矩是只結不離，但結婚有年限，可續。</div>
+          <div class="quote-text">這個地方的規規是只結不離，但結婚有年限，可續。</div>
         </div>
         <div class="quote-card gold-border">
           <div class="quote-text">試著失敗，得到經驗。持續去做一件小事。</div>
